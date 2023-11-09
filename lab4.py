@@ -2,7 +2,6 @@ import numpy as np
 import time
 import matplotlib.pyplot as plt
 
-
 def transformata_fourier(x):
     N = len(x)
     X = np.zeros(N, dtype=complex)
@@ -50,7 +49,31 @@ plt.title('Compararea timpului de execuție DFT')
 plt.legend()
 plt.show()
 
+# Exercitiul 2
 
+# Construire semnal initial
+
+f = 10 # frecventa
+amplitudine = 1.0
+faza = 0
+
+# Frecvența de esantionare sub-Nyquist
+frecventa_esantionare = 2 * f
+
+durata = 3
+
+timp = np.linspace(0, durata, int(frecventa_esantionare * durata))
+
+# semnal sin
+semnal_initial = amplitudine * np.sin(2 * np.pi * f * timp + faza)
+
+plt.figure(figsize=(8, 5))
+plt.plot(timp, semnal_initial)
+plt.title('Semnal Sinusoidal')
+plt.xlabel('Timp')
+plt.ylabel('Amplitudine')
+plt.grid()
+plt.show()
 
 
 

@@ -43,6 +43,7 @@ for N in dimensiuni:
 plt.figure(figsize=(8, 6))
 plt.plot(dimensiuni, timp_executie, label="Implementare proprie")
 plt.plot(dimensiuni, timp_executie_numpy, label="numpy.fft")
+plt.yscale('log')
 plt.xlabel('Dimensiunea vectorului N')
 plt.ylabel('Timp de execuție')
 plt.title('Compararea timpului de execuție DFT')

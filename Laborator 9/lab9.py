@@ -2,6 +2,8 @@ import numpy as np
 import statsmodels.api as sm
 import matplotlib.pyplot as plt
 
+# Exercitiul 1
+
 # seed-ul pentru reproducibilitate
 np.random.seed(42)
 
@@ -84,6 +86,50 @@ plt.figure(figsize=(12, 6))
 plt.plot(t, time_series, label='Seria de Timp')
 plt.plot(t, predictions, label='Predicții AR', linestyle='--')
 plt.title('Seria de Timp și Predicțiile Modelului AR')
+plt.xlabel('Timp')
+plt.ylabel('Valoare')
+plt.legend()
+plt.show()
+
+# Exercitiul 2
+def mediere_exp(series, alpha):
+    result = [series[0]]  # primul punct rămâne neschimbat
+    for n in range(1, len(series)):
+        result.append(alpha * series[n] + (1 - alpha) * result[n-1])
+    return result
+
+# medierea exponentială pentru seria de timp
+alpha = 0.2
+mediere = mediere_exp(time_series, alpha)
+
+plt.figure(figsize=(12, 6))
+plt.plot(t, time_series, label='Seria de Timp')
+plt.plot(t, mediere, label=f'Mediere Exponentială (α={alpha})', linestyle='--')
+plt.title('Seria de Timp și Medierea Exponentială')
+plt.xlabel('Timp')
+plt.ylabel('Valoare')
+plt.legend()
+plt.show()
+
+# Exercitiul 3
+
+# aici am avut o problema cu niste warnings
+
+# orizontul
+q = 5
+
+# modelul MA
+ma_model = sm.tsa.ARIMA(time_series, order=(0, 0, q))
+ma_result = ma_model.fit()
+
+print(ma_result.summary())
+
+predictii = ma_result.predict(start=0, end=N-1)
+
+plt.figure(figsize=(12, 6))
+plt.plot(t, time_series, label='Seria de Timp')
+plt.plot(t, predictii, label=f'Predicții MA (q={q})', linestyle='--')
+plt.title('Seria de Timp și Predicțiile Modelului de Medie Mobilă (MA)')
 plt.xlabel('Timp')
 plt.ylabel('Valoare')
 plt.legend()
